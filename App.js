@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
 import { Navbar } from "./src/components/Navbar";
 import { MainScreen } from "./src/screens/MainScreen";
@@ -65,6 +67,11 @@ const App = () => {
     );
   };
 
+  let [fontsLoaded] = useFonts({
+    "roboto-regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "roboto-bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+  });
+
   let content = (
     <MainScreen
       todos={todos}
@@ -86,14 +93,18 @@ const App = () => {
     );
   }
 
-  return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-      <Navbar title="[ TODO APP ]" />
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        <StatusBar style="light" />
+        <Navbar title="[ TODO APP ]" />
 
-      <View style={styles.wrapper}>{content}</View>
-    </View>
-  );
+        <View style={styles.wrapper}>{content}</View>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

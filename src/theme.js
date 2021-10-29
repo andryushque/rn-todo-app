@@ -5,4 +5,7 @@ export const THEME = {
   COLOR_WHITE: "#fff",
   COLOR_GREY: "#757575",
   COLOR_LIGHTGRAY: "#eee",
+
+  FONT_PRIMARY: "roboto-regular",
+  FONT_PRIMARY_BOLD: "roboto-bold",
 };
