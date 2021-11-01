@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-        padding: 10,
+        padding: THEME.PADDING.DEFAULT,
         borderWidth: 1,
         borderColor: THEME.COLOR.LIGHTGRAY,
         borderRadius: 5,

@@ -7,6 +7,7 @@ import AppLoading from 'expo-app-loading';
 import { Navbar } from './src/components/Navbar';
 import { MainScreen } from './src/screens/MainScreen';
 import { TodoScreen } from './src/screens/TodoScreen';
+import { THEME } from './src/theme';
 
 const App = () => {
     const [todoId, setTodoId] = useState(null);
@@ -114,11 +115,11 @@ const App = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: THEME.COLOR.WHITE,
     },
     wrapper: {
         flex: 1,
-        padding: 10,
+        padding: THEME.PADDING.DEFAULT,
     },
 });
 

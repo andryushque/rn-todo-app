@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 
 import { AppCard } from '../components/ui/AppCard';
 import { AppTextBold } from '../components/ui/AppTextBold';
@@ -14,6 +14,8 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
 
     const openModal = () => setModalVisible(true);
     const closeModal = () => setModalVisible(false);
+
+    const onRemove = () => removeTodo(todo.id);
 
     const updateHandler = (title) => {
         updateTodo(todo.id, title);
@@ -32,7 +34,7 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
             <AppCard style={styles.card}>
                 <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
 
-                <AppButton color={THEME.COLOR.TRANSPARENT} onPress={openModal}>
+                <AppButton onPress={openModal} color={THEME.COLOR.TRANSPARENT}>
                     <Feather
                         name="edit-3"
                         size={20}
@@ -42,15 +44,16 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
             </AppCard>
 
             <View style={styles.buttons}>
-                <AppButton onPress={goBack} color={THEME.COLOR.GREY}>
-                    [ Go back ]
-                </AppButton>
-                <AppButton
-                    onPress={() => removeTodo(todo.id)}
-                    color={THEME.COLOR.RED}
-                >
-                    [ Remove ]
-                </AppButton>
+                <View style={styles.button}>
+                    <AppButton onPress={goBack} color={THEME.COLOR.GREY}>
+                        [ Go back ]
+                    </AppButton>
+                </View>
+                <View style={styles.button}>
+                    <AppButton onPress={onRemove} color={THEME.COLOR.RED}>
+                        [ Remove ]
+                    </AppButton>
+                </View>
             </View>
         </View>
     );
@@ -58,7 +61,7 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
 
 const styles = StyleSheet.create({
     title: {
-        paddingLeft: 10,
+        paddingLeft: THEME.PADDING.DEFAULT,
         fontSize: 16,
     },
     card: {
@@ -67,5 +70,8 @@ const styles = StyleSheet.create({
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    button: {
+        width: Dimensions.get('window').width / 2.5,
     },
 });

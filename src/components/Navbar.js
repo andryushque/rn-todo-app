@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        paddingBottom: 10,
+        paddingBottom: THEME.PADDING.DEFAULT,
         fontSize: 18,
         color:
             Platform.OS === 'android' ? THEME.COLOR.WHITE : THEME.COLOR.PRIMARY,

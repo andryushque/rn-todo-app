@@ -19,4 +19,8 @@ export const THEME = {
             BOLD: 'roboto-bold',
         },
     },
+
+    PADDING: {
+        DEFAULT: 10,
+    },
 };

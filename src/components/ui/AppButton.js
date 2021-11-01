@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
 
-        paddingVertical: 8,
-        paddingHorizontal: 16,
+        paddingVertical: THEME.PADDING.DEFAULT * 0.8,
+        paddingHorizontal: THEME.PADDING.DEFAULT * 1.6,
         borderRadius: 4,
     },
 
