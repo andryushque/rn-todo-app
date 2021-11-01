@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Modal, View, TextInput, Alert } from 'react-native';
+import {
+    StyleSheet,
+    Modal,
+    View,
+    TextInput,
+    Alert,
+    Keyboard,
+} from 'react-native';
 import { AppButton } from './ui/AppButton';
 import { THEME } from '../theme';
 
@@ -13,13 +20,20 @@ export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
                 `Min length is 3, current length is ${newValue.trim().length}`
             );
         } else {
+            Keyboard.dismiss();
             updateTodo(newValue);
+            setTimeout(() => {
+                closeModal();
+            }, 250);
         }
     };
 
     const cancelHandler = () => {
+        Keyboard.dismiss();
         setNewValue(value);
-        closeModal();
+        setTimeout(() => {
+            closeModal();
+        }, 250);
     };
 
     return (

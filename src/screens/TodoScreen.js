@@ -28,9 +28,8 @@ export const TodoScreen = () => {
     const removeHandler = () => removeTodo(todo.id);
     const goBack = () => changeScreen(null);
 
-    const updateHandler = (title) => {
-        updateTodo(todo.id, title);
-        closeModal();
+    const updateHandler = async (title) => {
+        await updateTodo(todo.id, title);
     };
 
     return (

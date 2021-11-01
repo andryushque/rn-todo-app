@@ -38,13 +38,15 @@ export const TodoState = ({ children }) => {
             });
 
             const data = await response.json();
-            const todos = Object.keys(data).map((key) => ({
-                ...data[key],
-                id: key,
-            }));
+            const todos = data
+                ? Object.keys(data).map((key) => ({
+                      ...data[key],
+                      id: key,
+                  }))
+                : [];
 
             // console.log('[DATA]:', todos);
-            dispatch({ type: FETCH_TODOS, todos });
+            if (todos.length) dispatch({ type: FETCH_TODOS, todos });
         } catch (e) {
             showError('[ Something went wrong... ]');
             console.log(e);
@@ -60,12 +62,21 @@ export const TodoState = ({ children }) => {
             body: JSON.stringify({ title }),
         });
         const data = await response.json();
-        console.log('[TODO ID]:', data.name);
+        // console.log('[TODO ID]:', data.name);
 
         dispatch({ type: ADD_TODO, id: data.name, title });
     };
     const removeTodo = (id) => {
         const todo = state.todos.find((item) => item.id === id);
+
+        const removeHandler = async () => {
+            await fetch(`${DB_URL}/todos/${id}.json`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            changeScreen(null);
+            dispatch({ type: REMOVE_TODO, id });
+        };
 
         Alert.alert(
             `Removing todo`,
@@ -77,10 +88,7 @@ export const TodoState = ({ children }) => {
                 },
                 {
                     text: 'YES',
-                    onPress: () => {
-                        changeScreen(null);
-                        dispatch({ type: REMOVE_TODO, id });
-                    },
+                    onPress: removeHandler,
                 },
             ],
             {
@@ -88,8 +96,21 @@ export const TodoState = ({ children }) => {
             }
         );
     };
-    const updateTodo = (id, title) =>
-        dispatch({ type: UPDATE_TODO, title, id });
+    const updateTodo = async (id, title) => {
+        clearError();
+
+        try {
+            await fetch(`${DB_URL}/todos/${id}.json`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title }),
+            });
+            dispatch({ type: UPDATE_TODO, title, id });
+        } catch (e) {
+            showError('[ Something went wrong... ]');
+            console.log(e);
+        }
+    };
 
     const showLoader = () => dispatch({ type: SHOW_LOADER });
     const hideLoader = () => dispatch({ type: HIDE_LOADER });
