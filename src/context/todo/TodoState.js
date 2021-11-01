@@ -16,6 +16,7 @@ import {
 } from '../types';
 
 import { DB_URL } from '@env';
+import { Http } from '../../http';
 
 const initialState = {
     todos: [],
@@ -26,18 +27,16 @@ const initialState = {
 export const TodoState = ({ children }) => {
     const [state, dispatch] = useReducer(todoReducer, initialState);
     const { changeScreen } = useContext(ScreenContext);
+    const errorText = '[ Something went wrong... ]';
 
     const fetchTodos = async () => {
         showLoader();
         clearError();
 
-        try {
-            const response = await fetch(`${DB_URL}/todos.json`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            });
+        const url = `${DB_URL}/todos.json`;
 
-            const data = await response.json();
+        try {
+            const data = await Http.get(url);
             const todos = data
                 ? Object.keys(data).map((key) => ({
                       ...data[key],
@@ -45,10 +44,9 @@ export const TodoState = ({ children }) => {
                   }))
                 : [];
 
-            // console.log('[DATA]:', todos);
             if (todos.length) dispatch({ type: FETCH_TODOS, todos });
         } catch (e) {
-            showError('[ Something went wrong... ]');
+            showError(errorText);
             console.log(e);
         } finally {
             hideLoader();
@@ -56,26 +54,31 @@ export const TodoState = ({ children }) => {
     };
 
     const addTodo = async (title) => {
-        const response = await fetch(`${DB_URL}/todos.json`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title }),
-        });
-        const data = await response.json();
-        // console.log('[TODO ID]:', data.name);
+        clearError();
+        const url = `${DB_URL}/todos.json`;
 
-        dispatch({ type: ADD_TODO, id: data.name, title });
+        try {
+            const data = await Http.post(url, { title });
+            dispatch({ type: ADD_TODO, id: data.name, title });
+        } catch (e) {
+            showError(errorText);
+        }
     };
+
     const removeTodo = (id) => {
+        clearError();
         const todo = state.todos.find((item) => item.id === id);
 
         const removeHandler = async () => {
-            await fetch(`${DB_URL}/todos/${id}.json`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-            });
-            changeScreen(null);
-            dispatch({ type: REMOVE_TODO, id });
+            const url = `${DB_URL}/todos/${id}.json`;
+
+            try {
+                const data = await Http.delete(url);
+                changeScreen(null);
+                dispatch({ type: REMOVE_TODO, id });
+            } catch (e) {
+                showError(errorText);
+            }
         };
 
         Alert.alert(
@@ -96,19 +99,16 @@ export const TodoState = ({ children }) => {
             }
         );
     };
+
     const updateTodo = async (id, title) => {
         clearError();
+        const url = `${DB_URL}/todos/${id}.json`;
 
         try {
-            await fetch(`${DB_URL}/todos/${id}.json`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title }),
-            });
+            const data = await Http.patch(url, { title });
             dispatch({ type: UPDATE_TODO, title, id });
         } catch (e) {
-            showError('[ Something went wrong... ]');
-            console.log(e);
+            showError(errorText);
         }
     };
 
