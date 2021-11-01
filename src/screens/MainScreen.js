@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Text, Image } from 'react-native';
+import { StyleSheet, View, FlatList, Image } from 'react-native';
 import { AddTodo } from '../components/AddTodo';
 import { TodoItem } from '../components/TodoItem';
 

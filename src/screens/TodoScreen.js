@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { AppCard } from '../components/ui/AppCard';
+import { AppTextBold } from '../components/ui/AppTextBold';
+import { AppButton } from '../components/ui/AppButton';
 import { EditModal } from '../components/EditModal';
 import { THEME } from '../theme';
 
@@ -26,27 +28,26 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
             />
 
             <AppCard style={styles.card}>
-                <Text style={styles.title}>{todo.title}</Text>
-                <TouchableOpacity onPress={openModal} activeOpacity={0.5}>
-                    <Text style={styles.button_edit}>[ Edit ]</Text>
-                </TouchableOpacity>
+                <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
+                <AppButton
+                    title={'[ Edit ]'}
+                    onPress={openModal}
+                    style={styles.button_edit}
+                    styleText={styles.button_edit_text}
+                />
             </AppCard>
 
             <View style={styles.buttons}>
-                <View style={styles.button}>
-                    <Button
-                        title={'[ Go back ]'}
-                        color={THEME.COLOR_GREY}
-                        onPress={goBack}
-                    />
-                </View>
-                <View style={styles.button}>
-                    <Button
-                        title={'[ Remove ]'}
-                        color={THEME.COLOR_RED}
-                        onPress={() => removeTodo(todo.id)}
-                    />
-                </View>
+                <AppButton
+                    title={'[ Go back ]'}
+                    onPress={goBack}
+                    style={styles.button_back}
+                />
+                <AppButton
+                    title={'[ Remove ]'}
+                    onPress={() => removeTodo(todo.id)}
+                    style={styles.button_remove}
+                />
             </View>
         </View>
     );
@@ -56,7 +57,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
     },
-
     card: {
         marginBottom: 20,
     },
@@ -65,14 +65,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-
-    button: {
-        width: '42%',
+    button_back: {
+        width: '32%',
+        backgroundColor: THEME.COLOR.GREY,
     },
-
+    button_remove: {
+        width: '32%',
+        backgroundColor: THEME.COLOR.RED,
+    },
     button_edit: {
-        fontSize: 16,
-        textTransform: 'lowercase',
-        color: THEME.COLOR_PRIMARY,
+        paddingVertical: 5,
+        paddingHorizontal: 5,
+        backgroundColor: 'transparent',
+    },
+    button_edit_text: {
+        color: THEME.COLOR.PRIMARY,
     },
 });

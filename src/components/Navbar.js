@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { AppText } from './ui/AppText';
 import { THEME } from '../theme';
 
 export const Navbar = ({ title }) => {
     return (
         <View style={styles.navbar}>
-            <Text style={styles.text}>{title}</Text>
+            <AppText style={styles.text}>{title}</AppText>
         </View>
     );
 };
@@ -15,13 +16,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         height: 80,
-        backgroundColor: THEME.COLOR_PRIMARY,
+        backgroundColor: THEME.COLOR.PRIMARY,
     },
 
     text: {
         paddingBottom: 10,
         fontSize: 18,
-        color: THEME.COLOR_WHITE,
-        fontFamily: THEME.FONT_PRIMARY,
+        color: THEME.COLOR.WHITE,
     },
 });

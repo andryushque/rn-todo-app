@@ -1,11 +1,21 @@
 export const THEME = {
-    COLOR_PRIMARY: '#3949ab',
-    COLOR_RED: '#e53935',
-    COLOR_BLACK: '#000',
-    COLOR_WHITE: '#fff',
-    COLOR_GREY: '#757575',
-    COLOR_LIGHTGRAY: '#eee',
+    COLOR: {
+        PRIMARY: '#3949ab',
+        RED: '#e53935',
+        BLACK: '#000',
+        WHITE: '#fff',
+        GREY: '#757575',
+        LIGHTGRAY: '#eee',
+    },
 
-    FONT_PRIMARY: 'roboto-regular',
-    FONT_PRIMARY_BOLD: 'roboto-bold',
+    FONT: {
+        PRIMARY: {
+            REGULAR: 'ubuntu-regular',
+            BOLD: 'ubuntu-bold',
+        },
+        SECONDARY: {
+            REGULAR: 'roboto-regular',
+            BOLD: 'roboto-bold',
+        },
+    },
 };

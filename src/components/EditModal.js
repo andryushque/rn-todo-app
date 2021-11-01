@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
-import {
-    StyleSheet,
-    Modal,
-    View,
-    TextInput,
-    Button,
-    Alert,
-} from 'react-native';
+import { StyleSheet, Modal, View, TextInput, Alert } from 'react-native';
+import { AppButton } from './ui/AppButton';
 import { THEME } from '../theme';
 
 export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
@@ -42,20 +36,16 @@ export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
                 />
 
                 <View style={styles.buttons}>
-                    <View style={styles.button}>
-                        <Button
-                            title={'[ Cancel ]'}
-                            color={THEME.COLOR_RED}
-                            onPress={onCancel}
-                        />
-                    </View>
-                    <View style={styles.button}>
-                        <Button
-                            title={'[ Save ]'}
-                            color={THEME.COLOR_PRIMARY}
-                            onPress={onUpdate}
-                        />
-                    </View>
+                    <AppButton
+                        title={'[ Cancel ]'}
+                        onPress={onCancel}
+                        style={styles.button_cancel}
+                    />
+                    <AppButton
+                        title={'[ Save ]'}
+                        onPress={onUpdate}
+                        style={styles.button_save}
+                    />
                 </View>
             </View>
         </Modal>
@@ -76,8 +66,9 @@ const styles = StyleSheet.create({
 
         borderStyle: 'solid',
         borderBottomWidth: 2,
-        borderBottomColor: THEME.COLOR_PRIMARY,
+        borderBottomColor: THEME.COLOR.PRIMARY,
 
+        fontFamily: THEME.FONT.PRIMARY.REGULAR,
         fontSize: 16,
     },
 
@@ -87,7 +78,12 @@ const styles = StyleSheet.create({
         width: '80%',
     },
 
-    button: {
+    button_save: {
         width: '42%',
+        backgroundColor: THEME.COLOR.PRIMARY,
+    },
+    button_cancel: {
+        width: '42%',
+        backgroundColor: THEME.COLOR.RED,
     },
 });

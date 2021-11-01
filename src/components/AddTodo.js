@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, View, TextInput, Alert } from 'react-native';
+import { AppButton } from './ui/AppButton';
 import { THEME } from '../theme';
 
 export const AddTodo = ({ onSubmit }) => {
@@ -28,11 +29,8 @@ export const AddTodo = ({ onSubmit }) => {
                 autoCapitalize={'none'}
                 maxLength={69}
             />
-            <Button
-                title="[ Add ]"
-                color={THEME.COLOR_PRIMARY}
-                onPress={pressHandler}
-            />
+
+            <AppButton onPress={pressHandler} title={'[ Add ]'} />
         </View>
     );
 };
@@ -50,7 +48,9 @@ const styles = StyleSheet.create({
         padding: 5,
         borderStyle: 'solid',
         borderBottomWidth: 2,
-        borderBottomColor: THEME.COLOR_PRIMARY,
+        borderBottomColor: THEME.COLOR.PRIMARY,
+
+        fontFamily: THEME.FONT.PRIMARY.REGULAR,
         fontSize: 16,
     },
 });

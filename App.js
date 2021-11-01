@@ -72,6 +72,8 @@ const App = () => {
     let [fontsLoaded] = useFonts({
         'roboto-regular': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
         'roboto-bold': require('./assets/fonts/Roboto/Roboto-Bold.ttf'),
+        'ubuntu-regular': require('./assets/fonts/Ubuntu/Ubuntu-Regular.ttf'),
+        'ubuntu-bold': require('./assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
     });
 
     let content = (
