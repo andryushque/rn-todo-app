@@ -29,20 +29,28 @@ export const TodoState = ({ children }) => {
 
     const fetchTodos = async () => {
         showLoader();
-        const response = await fetch(`${DB_URL}/todos.json`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-        });
+        clearError();
 
-        const data = await response.json();
-        const todos = Object.keys(data).map((key) => ({
-            ...data[key],
-            id: key,
-        }));
+        try {
+            const response = await fetch(`${DB_URL}/todos.json`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-        // console.log('[DATA]:', todos);
-        dispatch({ type: FETCH_TODOS, todos });
-        hideLoader();
+            const data = await response.json();
+            const todos = Object.keys(data).map((key) => ({
+                ...data[key],
+                id: key,
+            }));
+
+            // console.log('[DATA]:', todos);
+            dispatch({ type: FETCH_TODOS, todos });
+        } catch (e) {
+            showError('[ Something went wrong... ]');
+            console.log(e);
+        } finally {
+            hideLoader();
+        }
     };
 
     const addTodo = async (title) => {
@@ -86,7 +94,7 @@ export const TodoState = ({ children }) => {
     const showLoader = () => dispatch({ type: SHOW_LOADER });
     const hideLoader = () => dispatch({ type: HIDE_LOADER });
     const showError = (error) => dispatch({ type: SHOW_ERROR, error });
-    const clearLoader = () => dispatch({ type: CLEAR_ERROR });
+    const clearError = () => dispatch({ type: CLEAR_ERROR });
 
     return (
         <TodoContext.Provider

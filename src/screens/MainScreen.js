@@ -4,6 +4,8 @@ import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
 import { AddTodo } from '../components/AddTodo';
 import { TodoItem } from '../components/TodoItem';
 import { AppLoader } from '../components/ui/AppLoader';
+import { AppText } from '../components/ui/AppText';
+import { AppButton } from '../components/ui/AppButton';
 
 import { THEME } from '../theme';
 
@@ -47,6 +49,15 @@ export const MainScreen = () => {
     );
 
     if (loading) return <AppLoader />;
+    if (error)
+        return (
+            <View style={styles.center}>
+                <AppText style={styles.error}>{error}</AppText>
+                <AppButton onPress={loadTodos} color={THEME.COLOR.RED}>
+                    [ Try again ]
+                </AppButton>
+            </View>
+        );
 
     return (
         <View>
@@ -81,5 +92,17 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'contain',
+    },
+
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    error: {
+        marginBottom: 15,
+        fontSize: 20,
+        color: THEME.COLOR.RED,
+        textTransform: 'lowercase',
     },
 });
