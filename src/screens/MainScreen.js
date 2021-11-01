@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
 import { AddTodo } from '../components/AddTodo';
 import { TodoItem } from '../components/TodoItem';
 import { THEME } from '../theme';
 
-export const MainScreen = ({ todos, addTodo, removeTodo, openTodo }) => {
-    const [deviceWidth, setDeviceWidth] = useState(
-        Dimensions.get('window').width - THEME.PADDING.DEFAULT * 2
-    );
+import { TodoContext } from '../context/todo/todoContext';
+import { ScreenContext } from '../context/screen/screenContext';
+
+export const MainScreen = () => {
+    // == state
+    const initialState =
+        Dimensions.get('window').width - THEME.PADDING.DEFAULT * 2;
+    const [deviceWidth, setDeviceWidth] = useState(initialState);
+    const { todos, addTodo, removeTodo } = useContext(TodoContext);
+    const { changeScreen } = useContext(ScreenContext);
 
     useEffect(() => {
         const update = () => {
@@ -20,6 +26,7 @@ export const MainScreen = ({ todos, addTodo, removeTodo, openTodo }) => {
         return () => subscription?.remove();
     });
 
+    // == content
     const emptyContent = (
         <View style={styles.img_wrapper}>
             <Image
@@ -40,8 +47,8 @@ export const MainScreen = ({ todos, addTodo, removeTodo, openTodo }) => {
                     renderItem={({ item }) => (
                         <TodoItem
                             todo={item}
-                            onRemove={removeTodo}
-                            onOpen={openTodo}
+                            removeTodo={removeTodo}
+                            changeScreen={changeScreen}
                         />
                     )}
                     keyExtractor={(item) => item.id.toString()}

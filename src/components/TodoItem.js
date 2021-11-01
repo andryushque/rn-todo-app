@@ -3,12 +3,12 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { AppTextBold } from './ui/AppTextBold';
 import { THEME } from '../theme';
 
-export const TodoItem = ({ todo, onRemove, onOpen }) => {
+export const TodoItem = ({ todo, removeTodo, changeScreen }) => {
     return (
         <TouchableOpacity
             activeOpacity={0.5}
-            onPress={() => onOpen(todo.id)}
-            onLongPress={onRemove.bind(null, todo.id)}
+            onPress={() => changeScreen(todo.id)}
+            onLongPress={removeTodo.bind(null, todo.id)}
         >
             <View style={styles.todo}>
                 <AppTextBold style={styles.text}>{todo.title}</AppTextBold>
