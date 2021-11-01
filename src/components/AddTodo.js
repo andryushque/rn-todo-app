@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, TextInput, Alert, Keyboard } from 'react-native';
 import { AppButton } from './ui/AppButton';
 
 import { Feather } from '@expo/vector-icons';
@@ -17,6 +17,7 @@ export const AddTodo = ({ onSubmit }) => {
         } else {
             onSubmit(value);
             setValue('');
+            Keyboard.dismiss();
         }
     };
 
