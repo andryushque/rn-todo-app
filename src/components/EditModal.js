@@ -36,10 +36,10 @@ export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
                 />
 
                 <View style={styles.buttons}>
-                    <AppButton onPress={onUpdate} color={THEME.COLOR.RED}>
+                    <AppButton onPress={onCancel} color={THEME.COLOR.RED}>
                         [ Cancel ]
                     </AppButton>
-                    <AppButton onPress={onCancel}>[ Save ]</AppButton>
+                    <AppButton onPress={onUpdate}>[ Save ]</AppButton>
                 </View>
             </View>
         </Modal>
