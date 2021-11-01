@@ -18,14 +18,15 @@ export const TodoScreen = () => {
     const { todoId, changeScreen } = useContext(ScreenContext);
     const [isModalVisible, setModalVisible] = useState(false);
 
+    // == current (selected) todo
     const todo = todos.find((item) => item.id === todoId);
 
     // == functions
     const openModal = () => setModalVisible(true);
     const closeModal = () => setModalVisible(false);
 
-    const onRemove = () => removeTodo(todo.id);
-    const onBack = () => changeScreen(null);
+    const removeHandler = () => removeTodo(todo.id);
+    const goBack = () => changeScreen(null);
 
     const updateHandler = (title) => {
         updateTodo(todo.id, title);
@@ -55,12 +56,12 @@ export const TodoScreen = () => {
 
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    <AppButton onPress={onBack} color={THEME.COLOR.GREY}>
+                    <AppButton onPress={goBack} color={THEME.COLOR.GREY}>
                         [ Go back ]
                     </AppButton>
                 </View>
                 <View style={styles.button}>
-                    <AppButton onPress={onRemove} color={THEME.COLOR.RED}>
+                    <AppButton onPress={removeHandler} color={THEME.COLOR.RED}>
                         [ Remove ]
                     </AppButton>
                 </View>

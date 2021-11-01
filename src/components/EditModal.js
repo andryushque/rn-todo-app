@@ -6,7 +6,7 @@ import { THEME } from '../theme';
 export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
     const [newValue, setNewValue] = useState(value);
 
-    const onUpdate = () => {
+    const updateHandler = () => {
         if (newValue.trim().length < 3) {
             Alert.alert(
                 'Error!',
@@ -17,7 +17,7 @@ export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
         }
     };
 
-    const onCancel = () => {
+    const cancelHandler = () => {
         setNewValue(value);
         closeModal();
     };
@@ -36,10 +36,10 @@ export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
                 />
 
                 <View style={styles.buttons}>
-                    <AppButton onPress={onCancel} color={THEME.COLOR.RED}>
+                    <AppButton onPress={cancelHandler} color={THEME.COLOR.RED}>
                         [ Cancel ]
                     </AppButton>
-                    <AppButton onPress={onUpdate}>[ Save ]</AppButton>
+                    <AppButton onPress={updateHandler}>[ Save ]</AppButton>
                 </View>
             </View>
         </Modal>

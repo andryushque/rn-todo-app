@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
+
 import { AddTodo } from '../components/AddTodo';
 import { TodoItem } from '../components/TodoItem';
+
 import { THEME } from '../theme';
 
 import { TodoContext } from '../context/todo/todoContext';
