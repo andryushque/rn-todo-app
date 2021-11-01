@@ -6,6 +6,7 @@ export const THEME = {
         WHITE: '#fff',
         GREY: '#757575',
         LIGHTGRAY: '#eee',
+        TRANSPARENT: 'transparent',
     },
 
     FONT: {

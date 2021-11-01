@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Alert } from 'react-native';
 import { AppButton } from './ui/AppButton';
+
+import { Feather } from '@expo/vector-icons';
 import { THEME } from '../theme';
 
 export const AddTodo = ({ onSubmit }) => {
@@ -30,7 +32,9 @@ export const AddTodo = ({ onSubmit }) => {
                 maxLength={69}
             />
 
-            <AppButton onPress={pressHandler} title={'[ Add ]'} />
+            <AppButton onPress={pressHandler} color={THEME.COLOR.PRIMARY}>
+                <Feather name="plus" size={22} color={THEME.COLOR.WHITE} />
+            </AppButton>
         </View>
     );
 };
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        width: '69%',
+        width: '75%',
         padding: 5,
         borderStyle: 'solid',
         borderBottomWidth: 2,

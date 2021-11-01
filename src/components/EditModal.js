@@ -36,16 +36,10 @@ export const EditModal = ({ visible, closeModal, value, updateTodo }) => {
                 />
 
                 <View style={styles.buttons}>
-                    <AppButton
-                        title={'[ Cancel ]'}
-                        onPress={onCancel}
-                        style={styles.button_cancel}
-                    />
-                    <AppButton
-                        title={'[ Save ]'}
-                        onPress={onUpdate}
-                        style={styles.button_save}
-                    />
+                    <AppButton onPress={onUpdate} color={THEME.COLOR.RED}>
+                        [ Cancel ]
+                    </AppButton>
+                    <AppButton onPress={onCancel}>[ Save ]</AppButton>
                 </View>
             </View>
         </Modal>
@@ -76,14 +70,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '80%',
-    },
-
-    button_save: {
-        width: '42%',
-        backgroundColor: THEME.COLOR.PRIMARY,
-    },
-    button_cancel: {
-        width: '42%',
-        backgroundColor: THEME.COLOR.RED,
     },
 });

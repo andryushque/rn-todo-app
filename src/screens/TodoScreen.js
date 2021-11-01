@@ -5,6 +5,8 @@ import { AppCard } from '../components/ui/AppCard';
 import { AppTextBold } from '../components/ui/AppTextBold';
 import { AppButton } from '../components/ui/AppButton';
 import { EditModal } from '../components/EditModal';
+
+import { Feather } from '@expo/vector-icons';
 import { THEME } from '../theme';
 
 export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
@@ -29,25 +31,26 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
 
             <AppCard style={styles.card}>
                 <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
-                <AppButton
-                    title={'[ Edit ]'}
-                    onPress={openModal}
-                    style={styles.button_edit}
-                    styleText={styles.button_edit_text}
-                />
+
+                <AppButton color={THEME.COLOR.TRANSPARENT} onPress={openModal}>
+                    <Feather
+                        name="edit-3"
+                        size={20}
+                        color={THEME.COLOR.BLACK}
+                    />
+                </AppButton>
             </AppCard>
 
             <View style={styles.buttons}>
+                <AppButton onPress={goBack} color={THEME.COLOR.GREY}>
+                    [ Go back ]
+                </AppButton>
                 <AppButton
-                    title={'[ Go back ]'}
-                    onPress={goBack}
-                    style={styles.button_back}
-                />
-                <AppButton
-                    title={'[ Remove ]'}
                     onPress={() => removeTodo(todo.id)}
-                    style={styles.button_remove}
-                />
+                    color={THEME.COLOR.RED}
+                >
+                    [ Remove ]
+                </AppButton>
             </View>
         </View>
     );
@@ -55,30 +58,14 @@ export const TodoScreen = ({ todo, goBack, removeTodo, updateTodo }) => {
 
 const styles = StyleSheet.create({
     title: {
+        paddingLeft: 10,
         fontSize: 16,
     },
     card: {
         marginBottom: 20,
     },
-
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-    button_back: {
-        width: '32%',
-        backgroundColor: THEME.COLOR.GREY,
-    },
-    button_remove: {
-        width: '32%',
-        backgroundColor: THEME.COLOR.RED,
-    },
-    button_edit: {
-        paddingVertical: 5,
-        paddingHorizontal: 5,
-        backgroundColor: 'transparent',
-    },
-    button_edit_text: {
-        color: THEME.COLOR.PRIMARY,
     },
 });
