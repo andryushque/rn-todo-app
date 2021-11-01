@@ -3,6 +3,7 @@ import { StyleSheet, View, FlatList, Image, Dimensions } from 'react-native';
 
 import { AddTodo } from '../components/AddTodo';
 import { TodoItem } from '../components/TodoItem';
+import { AppLoader } from '../components/ui/AppLoader';
 
 import { THEME } from '../theme';
 
@@ -44,6 +45,8 @@ export const MainScreen = () => {
             />
         </View>
     );
+
+    if (loading) return <AppLoader />;
 
     return (
         <View>

@@ -19,7 +19,7 @@ import { DB_URL } from '@env';
 
 const initialState = {
     todos: [],
-    loading: false,
+    loading: true,
     error: null,
 };
 
@@ -28,6 +28,7 @@ export const TodoState = ({ children }) => {
     const { changeScreen } = useContext(ScreenContext);
 
     const fetchTodos = async () => {
+        showLoader();
         const response = await fetch(`${DB_URL}/todos.json`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
@@ -41,6 +42,7 @@ export const TodoState = ({ children }) => {
 
         // console.log('[DATA]:', todos);
         dispatch({ type: FETCH_TODOS, todos });
+        hideLoader();
     };
 
     const addTodo = async (title) => {
